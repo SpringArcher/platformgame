@@ -42,8 +42,8 @@ public class EnemyScript : MonoBehaviour
         print("enemy x =" + ex);
         rb.linearVelocityX = dir;
 
-        isGroundedLeft = RayCollisionCheck(-1, 0);
-        isGroundedRight = RayCollisionCheck(1, 0);
+        isGroundedLeft = RayCollisionCheck(-1f, 0);
+        isGroundedRight = RayCollisionCheck(1f, 0);
         if (isGroundedLeft == false && dir < 0)
         {
             dir = 2;
@@ -67,7 +67,7 @@ public class EnemyScript : MonoBehaviour
     }
     public bool RayCollisionCheck(float xoffs, float yoffs)
     {
-        float rayLength = 0.1f; // length of raycast
+        float rayLength = 0.2f; // length of raycast
         bool hitSomething = false;
 
         // convert x and y offset into a Vector3 
@@ -88,7 +88,7 @@ public class EnemyScript : MonoBehaviour
             hitSomething = true;
         }
         // draw a debug ray to show ray's position
-        // You need to enable gizmos in th e editor to see these
+        // You need to enable gizmos in the editor to see these
         Debug.DrawRay(transform.position + offset, Vector2.down * rayLength, hitColor);
         return hitSomething;
 

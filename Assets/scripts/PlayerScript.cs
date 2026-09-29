@@ -12,9 +12,9 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer sr;
     public LayerMask groundLayerMask;
     bool result;
-    bool isGroundedMid;
-    bool isGroundedLeft;
-    bool isGroundedRight;
+    bool isGroundedBottomMid;
+    bool isGroundedBottomLeft;
+    bool isGroundedBottomRight;
     bool isJumping;
 
     void Start()
@@ -28,9 +28,9 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();   //initialise the rigidbody component
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();        
-        isGroundedMid = false;
-        isGroundedLeft = false;
-        isGroundedRight = false;
+        isGroundedBottomMid = false;
+        isGroundedBottomLeft = false;
+        isGroundedBottomRight = false; 
    
     }
 
@@ -47,11 +47,11 @@ public class PlayerScript : MonoBehaviour
         Vector2 moveVel = moveAction.ReadValue<Vector2>();
         rb.linearVelocity = new Vector2(moveVel.x * 7, rb.linearVelocity.y);
 
-        isGroundedMid = RayCollisionCheck(0, 0.2f);
-        isGroundedLeft = RayCollisionCheck(-0.6f, 0.2f);
-        isGroundedRight = RayCollisionCheck(0.6f, 0.2f);
+        isGroundedBottomMid = RayCollisionCheck(0, 0.2f);
+        isGroundedBottomLeft = RayCollisionCheck(-0.6f, 0.2f);
+        isGroundedBottomRight = RayCollisionCheck(0.6f, 0.2f);
 
-        if (isGroundedMid || isGroundedLeft || isGroundedRight == true)
+        if (isGroundedBottomMid || isGroundedBottomLeft || isGroundedBottomRight == true)
         {
             Jump();
         }
@@ -63,11 +63,11 @@ public class PlayerScript : MonoBehaviour
         {
             anim.SetBool("walk", false);
         }
-        if (isJumping == true && (isGroundedMid || isGroundedLeft || isGroundedRight == false))
+        if (isJumping == true && (isGroundedBottomMid || isGroundedBottomLeft || isGroundedBottomRight == false))
         {
             anim.SetBool("jump", true);
         }
-        if (isGroundedMid || isGroundedLeft || isGroundedRight == true)
+        if (isGroundedBottomMid || isGroundedBottomLeft || isGroundedBottomRight == true)
         {
             anim.SetBool("jump", false);
         }
@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
             hitSomething = true;
         }
         // draw a debug ray to show ray's position
-        // You need to enable gizmos in th e editor to see these
+        // You need to enable gizmos in the editor to see these
         Debug.DrawRay(transform.position + offset, Vector2.down * rayLength, hitColor);
         return hitSomething;
     }
