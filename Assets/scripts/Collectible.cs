@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Collectible : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    int score;
+    public int score;
     void Start()
     {
         
@@ -13,7 +14,7 @@ public class Collectible : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -21,7 +22,6 @@ public class Collectible : MonoBehaviour
         {
             score += 1;
             Destroy(gameObject);
-            print("Your score is " + score);
         }
     }
 }

@@ -30,7 +30,7 @@ public class TrackingEnemy : MonoBehaviour
             playerPresent = RayCollisionCheck(0f, 0.45f, Vector2.right);
             if (playerPresent == true)
             {
-                dir = 2;
+                dir = 4;
             }
             else
             {
@@ -43,7 +43,7 @@ public class TrackingEnemy : MonoBehaviour
             playerPresent = RayCollisionCheck(0f, 0.45f, Vector2.left);
             if (playerPresent == true)
             {
-                dir = -2;
+                dir = -4;
             }
             else
             {
