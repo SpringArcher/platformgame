@@ -4,11 +4,12 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Collectible : MonoBehaviour
 {
+    public GameObject ScoreCountText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public int score;
+    int score = 0;
     void Start()
     {
-        
+        ScoreCountText.GetComponent<TextMeshProUGUI>().text = "Coins: " + score;
     }
 
     // Update is called once per frame
@@ -21,8 +22,10 @@ public class Collectible : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             score += 1;
+            ScoreCountText.GetComponent<TextMeshProUGUI>().text = "Coins: " +score;
             Destroy(gameObject);
         }
     }
 }
+
 

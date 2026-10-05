@@ -63,7 +63,7 @@ public class TrackingEnemy : MonoBehaviour
     }
     public bool RayCollisionCheck(float xoffs, float yoffs, Vector2 direction)
     {
-        float rayLength = 5.5f; // length of raycast
+        float rayLength = 8.5f; // length of raycast
         bool hitSomething = false;
 
         // convert x and y offset into a Vector3 

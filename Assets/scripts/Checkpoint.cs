@@ -32,10 +32,10 @@ public class Checkpoint : MonoBehaviour
             {
                 ChePointText.GetComponent<TextMeshProUGUI>().text = "Checkpoint \n already hit! \n ^";
             }
-            Invoke("removeText", 5);
+            Invoke("RemoveText", 5);
         }
     }
-    void removeText()
+    void RemoveText()
     {
         ChePointText.GetComponent<TextMeshProUGUI>().text = " ";
     }
