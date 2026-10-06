@@ -1,3 +1,4 @@
+using System.Diagnostics.Metrics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,6 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer sr;
     public LayerMask groundLayerMask;
     public GameObject PlayerProjectile;
-    bool result;
     bool isGroundedBottomMid;
     bool isGroundedBottomLeft;
     bool isGroundedBottomRight;
@@ -41,12 +41,14 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* read the x-axis and output it to the rigidbody
-        float moveVelX = moveAction.ReadValue<Vector2>().x;
-        // read the x-axis and output it to the rigidbody
-        float moveVelY = moveAction.ReadValue<Vector2>().y;
-        rb.linearVelocity = new Vector2(moveVelX*10,moveVelY*10);
-        */
+        Attack();
+
+        Movement();
+
+
+    }
+    void Movement()
+    {
         Vector2 moveVel = moveAction.ReadValue<Vector2>();
         rb.linearVelocity = new Vector2(moveVel.x * 7, rb.linearVelocity.y);
 
@@ -69,14 +71,16 @@ public class PlayerScript : MonoBehaviour
         if (isJumping == true && (isGroundedBottomMid || isGroundedBottomLeft || isGroundedBottomRight == true))
         {
             anim.SetBool("jump", true);
+            anim.SetBool("walk", false);
         }
         if (isJumping == false && (isGroundedBottomMid || isGroundedBottomLeft || isGroundedBottomRight == true))
         {
             anim.SetBool("jump", false);
         }
         FlipSprite();
-
-
+    }
+    void Attack()
+    {
         if (attackAction.WasPressedThisFrame())
         {
             // Instantiate the bullet at the position and rotation of the player
@@ -91,18 +95,17 @@ public class PlayerScript : MonoBehaviour
             // set the x velocity to 15, y velocity to 0
             if (sr.flipX == true)
             {
-                rb.linearVelocity = new Vector2(-15, 0);
+                rb.rotation = -90;
+                rb.linearVelocity = new Vector2(-30, 0);
+                rb.transform.position = new Vector3(transform.position.x - 1.2f, transform.position.y + 0.6f, transform.position.z + 1);
             }
             if (sr.flipX == false)
             {
-                rb.linearVelocity = new Vector2(15, 0);
+                rb.rotation = 90;
+                rb.linearVelocity = new Vector2(30, 0);
+                rb.transform.position = new Vector3(transform.position.x + 1.2f, transform.position.y + 0.6f, transform.position.z + 1);
             }
-
-
-            // set the position close to the player
-            rb.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z + 1);
         }
-
     }
     void Jump()
     {
@@ -116,11 +119,6 @@ public class PlayerScript : MonoBehaviour
         {
             isJumping = false;
         }
-    }
-    void RemoveProjectile()
-    {
-        print("Not deleted anything lmao");
-        // I want to delete the clone after a certain amount of time
     }
     public bool RayCollisionCheck(float xoffs, float yoffs)
     {

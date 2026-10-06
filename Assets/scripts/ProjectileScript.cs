@@ -14,13 +14,8 @@ public class ProjectileScript : MonoBehaviour
     {
 
     }
-    private void OnCollisionEnter2D(Collision2D other)
+private void OnCollisionEnter2D(Collision2D other)
     {
-        Invoke("RemoveProjectile", 2);
-      }
-    void RemoveProjectile()
-    {
-        print("Not deleted anything lmao");
-        // I want to delete the clone after a certain amount of time
+            print("AAAAAAAAAAAAAAAAAAAA");
     }
 }
